@@ -48,8 +48,9 @@ static int select_pin_ctl(struct gf_dev *gf_dev,
 			if (rc) {
 				dev_err(dev, "cannot select '%s'\n", name);
 			}
-			else
+			else {
 				dev_err(dev, "Selected '%s'\n", name); goto exit;
+			}
 		}
 	}
 	rc = -EINVAL;
