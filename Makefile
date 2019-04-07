@@ -638,13 +638,15 @@ KBUILD_CFLAGS	+= $(call cc-disable-warning, attribute-alias)
 KBUILD_CFLAGS	+= $(call cc-option,-fno-PIE)
 KBUILD_AFLAGS	+= $(call cc-option,-fno-PIE)
 
-# Kill all maybe-uninitialized warnings
-KBUILD_CFLAGS	+= $(call cc-disable-warning,maybe-uninitialized,)
-
 ifdef CONFIG_CC_OPTIMIZE_FOR_SIZE
-KBUILD_CFLAGS	+= $(call cc-option,-Oz,-Os)
+KBUILD_CFLAGS += $(call cc-disable-warning,maybe-uninitialized,)
+KBUILD_AFLAGS += $(call cc-option, -Oz, -Os)
+else
+ifeq ($(cc-name),clang)
+KBUILD_CFLAGS	+= -O3
 else
 KBUILD_CFLAGS	+= -O2
+endif
 endif
 
 ifdef CONFIG_CC_WERROR
