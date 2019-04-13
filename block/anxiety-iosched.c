@@ -165,9 +165,11 @@ static int anxiety_init_queue(struct request_queue *q, struct elevator_type *elv
 
 static void anxiety_exit_queue(struct elevator_queue *e)
 {
-	struct anxiety_data *mdata = e->elevator_data;
+	struct anxiety_data *adata = e->elevator_data;
 
-	kfree(mdata);
+	fb_unregister_client(&adata->fb_notifier);
+
+	kfree(adata);
 }
 
 /* Sysfs access */
@@ -223,7 +225,6 @@ static struct elevator_type elevator_anxiety = {
 		.elevator_former_req_fn	= anxiety_former_request,
 		.elevator_latter_req_fn	= anxiety_latter_request,
 		.elevator_init_fn	= anxiety_init_queue,
-		.elevator_exit_fn	= anxiety_exit_queue,
 	},
 	.elevator_name = "anxiety",
 	.elevator_attrs = anxiety_attrs,
