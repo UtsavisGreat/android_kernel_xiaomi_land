@@ -6,7 +6,7 @@ DATE_POSTFIX=$(date +"%Y%m%d")
 
 HOME_DIR=/home/utsavbalar1231
 KERNEL_DIR=$PWD
-KERNEL_TOOLCHAIN=$HOME_DIR/gcc9/bin/aarch64-linux-gnu-
+KERNEL_TOOLCHAIN=$HOME_DIR/gcc/bin/aarch64-linux-android-
 CLANG_TOOLCHAIN=$HOME_DIR/clang/bin/clang-9
 KERNEL_DEFCONFIG=land_defconfig
 JOBS=8
@@ -27,4 +27,4 @@ echo -e "$R BUILDING KERNEL "
 echo -e "***********************************************$nocol"
 
 make $KERNEL_DEFCONFIG O=out
-make -j$JOBS CC=$CLANG_TOOLCHAIN CLANG_TRIPLE=aarch64-linux-gnu- O=out
+make -j$JOBS CC=$CLANG_TOOLCHAIN CLANG_TRIPLE=aarch64-linux-android- O=out
